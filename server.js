@@ -99,6 +99,75 @@ app.get('/fruits', (req, res) => {
         // catch errors if they occur
 })
 
+// Create route
+// Create -> receives a request body, and creates a new document in the database
+app.post('/fruits', (req, res) => {
+    // here, we'll have a request body
+    // Inside this function, that will be called req.body
+    // we want to pass our req.body to the create method
+    const newFruit = req.body
+    Fruit.create(newFruit)
+        // send a 201 status, along with the json response of the new fruit
+        .then(fruit => {
+            res.status(201).json({ fruit: fruit.toObject() })
+        })
+        // send and error if one occurs
+        .catch(err => console.log(err))
+    // res.send(newFruit) //to essentially console log to postman
+})
+
+// PUT route
+// Update -> updates a specific fruit
+// PUT replaces the entire document with a new document from the req.body
+// PATCH is able o tupdate specific fields at specific times, but it requires a little more code to ensure that it works properly, so we'll yuse that later.
+app.put('/fruits/:id', (req, res) => {
+    // save the id to a variable for easy use later
+    const id = req.params.id
+    // save the request body to a variable for easy reference later
+    const updatedFruit = req.body
+    // we're going to use the mongoose method:
+    // findByIdAndUpdate
+    // Eventually we'll change how tthis route works, but for now, we'll do everything in one shot, with findByIdAndUpdate
+    Fruit.findByIdAndUpdate(id, updatedFruit, { new: true })
+        .then(fruit => {
+            console.log('the newly updated fruit', fruit)
+            // update success message will be a 204 - no content
+            res.sendStatus(204)
+        })
+        .catch(err => console.log(err))
+})
+
+
+// DELETE route
+// Delete -> delte a specific fruit
+app.delete('/fruits/:id', (req, res) => {
+    // get the id from the req
+    const id = req.params.id
+    // Find and delete fruit
+    Fruit.findByIdAndDelete(id)
+    // send 204 if successful
+        .then(() => {
+            res.sendStatus(204)
+        })
+        .catch(err => console.log(err))
+})
+
+// SHOW route
+// Read -> finds and displays a single resource
+app.get('/fruits/:id', (req, res) => {
+    // get the id -> save to a variable
+    const id = req.params.id
+    // use a mongoose method to find using that Id
+    Fruit.findById(id)
+        .then(fruit => {
+            res.json({ fruit: fruit })
+        })
+        .catch(err => console.log(err))
+    // send the fruit as json upon success
+    // catch any errors
+
+})
+
 /////////////////////////////////////////////////////
 //// Server Listener                             ////
 /////////////////////////////////////////////////////
