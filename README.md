@@ -19,3 +19,24 @@ MVC:
 We're using express framework to build a server in which we are using mongoose to process our requeests and run CRUD operations using a mongoDb database
 
 What we're building is a REST api, that runs full CRUD operations on a single resource. (This will change, eventually)
+
+## What is REST?
+- REST:
+    - REpresentational 
+    - State
+    - Transfer
+- It's just a set of principles that describe how networked resources are accessed & manipulated
+- We have 7 RESTful routes that allow us basic operations for reading and manipulating a collection of data
+
+| **URL**              | **HTTP Verb** |**Actions**|
+|----------------------|---------------|-----------|
+| /fruits/             | GET           | index
+| /fruits/:id          | GET           | show
+| /fruits/new          | GET           | new
+| /fruits              | POST          | create
+| /fruits/:id/edit     | GET           | edit
+| /fruits/:id          | PATCH/PUT     | update
+| /fruits/:id          | DELETE        | destroy
+
+Update routes in route table to be fruits insteaf of photos
+
