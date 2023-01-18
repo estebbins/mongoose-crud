@@ -38,3 +38,17 @@ What we're building is a REST api, that runs full CRUD operations on a single re
 | /fruits/:id          | PATCH/PUT     | update
 | /fruits/:id          | DELETE        | destroy   |
 
+## File organization, where are things happening?
+
+Main entry file is still server.js
+This is where we establish our connection with express, to the port 3000, which allows us to develop locally, on [localhost:3000](http://localhost:3000/)
+
+`server.js` imports our `fruitControllers` from the controllers directory, 
+
+`fruitControllers` is where we set up our routes to utilize mongoose to interact with fruit documents in our mongoDb.
+
+The connection between fruits and mongoDb, starts with the file `utils/connection.js`, where we define and connect to our database. The Fruit model in `models/fruit.js` is where this connection happens. Our fruitControllers import the model Fruit, and run mongoose model methods whenever we hit the appropriate route.
+
+## Middleware
+
+Middleware is processed by a function in the utils directory, `utils/middleware.js`. This middleware function takes one argument, app, and processes requests through our middleware.
