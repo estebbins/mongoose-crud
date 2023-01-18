@@ -12,48 +12,21 @@ const router = express.Router()
 /////////////////////////////////////////////////////
 //// Routes                                      ////
 /////////////////////////////////////////////////////
-// We're going to build a seed route
-// this will seed the database for us with a few starter resources
-// there are two ways we will talk about seeding the database
-// First -> seed Router, they work but are not best practices
-// Second -> seed script, they work and are best practices
-router.get('/seed', (req, res) => {
-    // array of starter resources (fruits)
-    const startFruits = [
-        { name: 'Orange', color: 'orange' , readyToEat: true },
-        { name: 'Grape', color: 'purple' , readyToEat: true},
-        { name: 'Banana', color: 'green', readyToEat: false },
-        { name: 'Strawberry', color: 'red', readyToEat: false},
-        { name: 'Coconut', color: 'brown', readyToEat: true}
-    ]
-    // then we delete every fruit in the database (all instaces of this resource)
-    Fruit.deleteMany({})
-        .then(() => {
-            // then we'll seed(create) our starter fruits
-            Fruit.create(startFruits)
-                .then(data => {
-                    res.json(data)
-                })
-                .catch(err => console.log('the following error occurred:', err))
-        })
-    
-    // tell our db what to do with success and failures
-    // console.log('the starter fruits', startFruits)
-    // res.send({startFruits: startFruits})
-})
-
-// index route -> displays all fruits
+// INDEX route -> displays all fruits
 router.get('/', (req, res) => {
     // find all the fruits
     Fruit.find({})
         .then(fruits => { res.json({ fruits: fruits }) })
         // send json if successful
-        .catch(err => console.log('the following error occurred:', err))
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
         // catch errors if they occur
 })
 
 // Create route
-// Create -> receives a request body, and creates a new document in the database
+// CREATE -> receives a request body, and creates a new document in the database
 router.post('/', (req, res) => {
     // here, we'll have a request body
     // Inside this function, that will be called req.body
@@ -65,14 +38,17 @@ router.post('/', (req, res) => {
             res.status(201).json({ fruit: fruit.toObject() })
         })
         // send and error if one occurs
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
     // res.send(newFruit) //to essentially console log to postman
 })
 
 // PUT route
 // Update -> updates a specific fruit
 // PUT replaces the entire document with a new document from the req.body
-// PATCH is able o tupdate specific fields at specific times, but it requires a little more code to ensure that it works properly, so we'll yuse that later.
+// PATCH is able to update specific fields at specific times, but it requires a little more code to ensure that it works properly, so we'll use that later.
 router.put('/:id', (req, res) => {
     // save the id to a variable for easy use later
     const id = req.params.id
@@ -87,7 +63,10 @@ router.put('/:id', (req, res) => {
             // update success message will be a 204 - no content
             res.sendStatus(204)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
 })
 
 
@@ -102,7 +81,10 @@ router.delete('/:id', (req, res) => {
         .then(() => {
             res.sendStatus(204)
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
 })
 
 // SHOW route
@@ -117,7 +99,10 @@ router.get('/:id', (req, res) => {
             res.json({ fruit: fruit })
         })
         // catch any errors
-        .catch(err => console.log(err))
+        .catch(err => {
+            console.log(err)
+            res.status(404).json(err)
+        })
 })
 /////////////////////////////////////////////////////
 //// Export Router                               ////
