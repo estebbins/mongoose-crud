@@ -13,9 +13,23 @@ const { Schema, model } = mongoose
 //// Define fruit schema & create fruit model    ////
 /////////////////////////////////////////////////////
 const fruitSchema = new Schema ({
-    name: String, 
-    color: String, 
-    readyToEat: Boolean
+    name: {
+        type: String
+    }, 
+    color: {
+        type: String
+    }, 
+    readyToEat: {
+        type: Boolean
+    },
+    owner: {
+        // this is where we set up an objectId reference
+        // by declaring that as a type
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    }
+}, {
+    timestamps: true
 })
 
 const Fruit = model('Fruit', fruitSchema)
