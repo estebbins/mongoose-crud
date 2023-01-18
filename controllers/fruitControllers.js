@@ -12,12 +12,6 @@ const router = express.Router()
 /////////////////////////////////////////////////////
 //// Routes                                      ////
 /////////////////////////////////////////////////////
-
-// // This is the home route -> sends message confirming connection
-// router.get('/', (req, res) => {
-//     res.send('Server is live, ready for requests')
-// })
-
 // We're going to build a seed route
 // this will seed the database for us with a few starter resources
 // there are two ways we will talk about seeding the database

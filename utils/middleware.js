@@ -3,6 +3,9 @@
 /////////////////////////////////////////////////////
 const express = require('express') // import the express framework
 const morgan = require('morgan') // import the morgan request logger
+const session = require('express-session') // import the express-session package
+const MongoStore = require('connect-mongo') // import the connect-mongo package (for sessions)
+require('dotenv').config() // connect-mongo needs to be able to connect to our database.
 
 /////////////////////////////////////////////////////
 //// Middleware function                         ////
@@ -15,6 +18,24 @@ const middleware = (app) => {
     app.use(express.urlencoded({ extended: true })) //this parses url encoded request bodies (useful for post and put requests)
     app.use(express.static('public')) //this serves static files from the public folder
     app.use(express.json()) //parses incoming requestt payloads with json
+    // here, we set up and utilize a session function, and we pass that function a config argument, to configure our session in the way we want. This argument will tell express-session how to crfeate and store our session.
+    // The config object, needs several keys in order to work (see expess-session docs)
+    // they keys are:
+    // secret - a super top secret code, that allows from the create of a session
+    // this secret is kinda like authorizaation, that allows out app to create with connectMongo
+    // store -> tells connec-mongo where to save the session (our db)
+    // then two options" saveUninitialized(set to true) and resave (set to false)
+    app.use(
+        session({
+            secret: process.env.SECRET,
+            store: MongoStore.create({
+                mongoUrl: process.env.DATABASE_URL
+            }),
+            // Using true while we're developing, but false is best practice
+            saveUninitialized: true,
+            resave: false
+        })
+    )
 }
 /////////////////////////////////////////////////////
 //// Export middleware function                  ////

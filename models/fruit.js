@@ -9,7 +9,9 @@ const mongoose = require('../utils/connection')
 // destructure the schema & model functions from mongoose
 const { Schema, model } = mongoose
 
-//fruits schema
+/////////////////////////////////////////////////////
+//// Define fruit schema & create fruit model    ////
+/////////////////////////////////////////////////////
 const fruitSchema = new Schema ({
     name: String, 
     color: String, 

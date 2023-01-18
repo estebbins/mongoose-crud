@@ -7,6 +7,7 @@ const express = require('express') // import the express framework
 const morgan = require('morgan') // import the morgan request logger
 require('dotenv').config() // Load ENV file's variables
 const FruitRouter = require('./controllers/fruitControllers')
+const UserRouter = require('./controllers/userControllers')
 const middleware = require('./utils/middleware')
 
 /////////////////////////////////////////////////////
@@ -17,6 +18,7 @@ const app = express()
 /////////////////////////////////////////////////////
 //// Middleware                                  ////
 /////////////////////////////////////////////////////
+// middleware runs before all the routes.
 // our middleware is now processed by a function in the utils directory. This middleware function takes one argument, app, and processes requests through our middleware.
 middleware(app)
 
@@ -31,6 +33,7 @@ app.get('/', (req, res) => {
 // app.use when we register our route needs two arguments
 // the first arg is the base URL, second is the file to use
 app.use('/fruits', FruitRouter)
+app.use('/users', UserRouter)
 
 /////////////////////////////////////////////////////
 //// Server Listener                             ////
