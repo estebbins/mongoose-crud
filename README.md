@@ -36,7 +36,5 @@ What we're building is a REST api, that runs full CRUD operations on a single re
 | /fruits              | POST          | create
 | /fruits/:id/edit     | GET           | edit
 | /fruits/:id          | PATCH/PUT     | update
-| /fruits/:id          | DELETE        | destroy
-
-Update routes in route table to be fruits insteaf of photos
+| /fruits/:id          | DELETE        | destroy   |
 
