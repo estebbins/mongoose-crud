@@ -55,7 +55,8 @@ db.on('open', () => {
         { name: 'Coconut', color: 'brown', readyToEat: true}
     ]
     // then we delete every fruit in the database (all instaces of this resource)
-    Fruit.deleteMany({})
+    // this will delete fruits that are not owned by any user
+    Fruit.deleteMany({ owner: null })
         .then(() => {
             // then we'll seed(create) our starter fruits
             Fruit.create(startFruits)
