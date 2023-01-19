@@ -14,7 +14,13 @@ const middleware = require('./utils/middleware')
 /////////////////////////////////////////////////////
 //// Create our Express App Object               ////
 /////////////////////////////////////////////////////
-const app = express()
+// this was fine for building an API that sends and receives json
+// const app = express()
+// so we're utilizing an npm package liquid-express-views to add the 'view' layer to our MVC framework
+// in short, we need to update our app ovject and tell it to use that package, as stated by the documentation
+// calling express() as an argument for the function we get back from liquid express views
+const app = require('liquid-express-views')(express())
+// what liquid express views does for us is make it wasy to path our .liquid files(which will serve our HTML). this package says to look inside the views folder for files with the .liquid name.
 
 /////////////////////////////////////////////////////
 //// Middleware                                  ////

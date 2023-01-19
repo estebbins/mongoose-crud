@@ -82,3 +82,7 @@ One to many:
 Fruits are connected to Users through the `fruit.owner` field, via `objectId` reference
 Comments are connected to Fruits, as an array of subdocuments at `fruit.comments`
 Users are connected to comments via `objectId` reference, at `comment.author`
+
+This is an entity relationship diagram (basic version for now). This accurately described my relationships between my documents (entities). 
+
+![entityRelationshipDiagram](images/image.png)
