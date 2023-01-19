@@ -53,7 +53,9 @@ What we're building is a REST api, that runs full CRUD operations on a single re
 
 | **URL**              | **HTTP Verb** |**Actions**|
 |----------------------|---------------|-----------|
+| /users/signup        | GET           | new    
 | /users/signup        | POST          | create    
+| /users/signup        | GET           | login   
 | /users/login         | POST          | create
 | /users/logout        | DELETE        | destroy   |
 

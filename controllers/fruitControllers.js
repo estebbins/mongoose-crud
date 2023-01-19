@@ -19,8 +19,13 @@ router.get('/', (req, res) => {
     // There is a built in function that runs before the rest of the promise chain
     // this function is called populate, and it's able to retreive info from other documents in other collections
         .populate('owner', '-password')
-        .then(fruits => { res.json({ fruits: fruits }) })
-        // send json if successful
+        .populate('comments.author', '-password')
+        .then(fruits => { 
+            // res.json({ fruits: fruits }) 
+            // send json if successful
+            // now that we have liquid installed, we're going to use render as a response for our controllers
+            res.render('fruits/index', { fruits })
+        })
         .catch(err => {
             console.log(err)
             res.status(404).json(err)
