@@ -2,7 +2,6 @@
 //// Import Dependencies                         ////
 /////////////////////////////////////////////////////
 const express = require('express')
-const { rawListeners } = require('../models/fruit')
 const Fruit = require('../models/fruit')
 
 /////////////////////////////////////////////////////
@@ -60,7 +59,7 @@ router.post('/', (req, res) => {
 router.get('/mine', (req, res) => {
     // find fruits by ownership, using the req.session info
     Fruit.find({ owner: req.session.userId })
-        .populate('owner', '-password')
+        .populate('comments.author', '-password')
         .then(fruits => {
             // if found, display the fruits
             res.status(200).json({ fruits: fruits })

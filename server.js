@@ -4,10 +4,11 @@
 const express = require('express') // import the express framework
 // we don't need mongoose dependency in here anymore.
 // const mongoose = require('mongoose') // import the mongoose library
-const morgan = require('morgan') // import the morgan request logger
+// const morgan = require('morgan') // import the morgan request logger
 require('dotenv').config() // Load ENV file's variables
 const FruitRouter = require('./controllers/fruitControllers')
 const UserRouter = require('./controllers/userControllers')
+const CommentRouter = require('./controllers/commentControllers')
 const middleware = require('./utils/middleware')
 
 /////////////////////////////////////////////////////
@@ -33,6 +34,7 @@ app.get('/', (req, res) => {
 // app.use when we register our route needs two arguments
 // the first arg is the base URL, second is the file to use
 app.use('/fruits', FruitRouter)
+app.use('/comments', CommentRouter)
 app.use('/users', UserRouter)
 
 /////////////////////////////////////////////////////

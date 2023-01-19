@@ -8,6 +8,7 @@
 const mongoose = require('../utils/connection')
 // destructure the schema & model functions from mongoose
 const { Schema, model } = mongoose
+const commentSchema = require('./comment')
 
 /////////////////////////////////////////////////////
 //// Define fruit schema & create fruit model    ////
@@ -27,7 +28,8 @@ const fruitSchema = new Schema ({
         // by declaring that as a type
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
+    },
+    comments: [commentSchema]
 }, {
     timestamps: true
 })
