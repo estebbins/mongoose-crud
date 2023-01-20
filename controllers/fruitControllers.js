@@ -169,7 +169,8 @@ router.get('/:id', (req, res) => {
     Fruit.findById(id)
         .then(fruit => {
             // send the fruit as json upon success
-            res.json({ fruit: fruit })
+            // res.json({ fruit: fruit })
+            res.render('fruits/show.liquid', {fruit, ...req.session})
         })
         // catch any errors
         .catch(err => {
