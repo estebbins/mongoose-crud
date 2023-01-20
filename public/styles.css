@@ -1,3 +1,9 @@
 body {
     background-color: lightseagreen;
 }
+
+.colorBox {
+    height: 25px;
+    width: 69%;
+    border: 1px solid grey;
+}

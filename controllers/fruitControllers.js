@@ -14,6 +14,7 @@ const router = express.Router()
 /////////////////////////////////////////////////////
 // INDEX route -> displays all fruits
 router.get('/', (req, res) => {
+    const { username, loggedIn, userId } = req.session
     // find all the fruits
     Fruit.find({})
     // There is a built in function that runs before the rest of the promise chain
@@ -24,7 +25,7 @@ router.get('/', (req, res) => {
             // res.json({ fruits: fruits }) 
             // send json if successful
             // now that we have liquid installed, we're going to use render as a response for our controllers
-            res.render('fruits/index', { fruits })
+            res.render('fruits/index', { fruits, username, loggedIn, userId })
         })
         .catch(err => {
             console.log(err)
@@ -67,7 +68,8 @@ router.get('/mine', (req, res) => {
         .populate('comments.author', '-password')
         .then(fruits => {
             // if found, display the fruits
-            res.status(200).json({ fruits: fruits })
+            // res.status(200).json({ fruits: fruits })
+            res.render('fruits/index', { fruits, ...req.session })
         })
         .catch(err => {
             // otherwise, throw an error
